@@ -1,0 +1,60 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/db.changelog-lesson1.yaml
+  - changeSet:
+      id: 1
+      author: your_liquibase_username
+      changes:
+        - createTable:
+            tableName: team
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name_team
+                  type: varchar(50)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: name_sports
+                  type: varchar(512)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: date
+                  type: varchar(50)
+
+  - changeSet:
+      id: 2
+      author: your_liquibase_username
+      comment: "Create"
+      changes:
+        - insert:
+            tableName: team
+            columns:
+              - column:
+                  name: name_team
+                  value: "ЦСК"
+              - column:
+                  name: name_sports
+                  value: "Футбол"
+              - column:
+                  name: date
+                  value: "12.09.11"
+        - insert:
+            tableName: team
+            columns:
+              - column:
+                  name: name_team
+                  value: "ХИМКИ"
+              - column:
+                  name: name_sports
+                  value: "Футбол"
+              - column:
+                  name: date
+                  value: "12.12.12"

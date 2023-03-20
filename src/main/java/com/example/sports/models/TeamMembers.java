@@ -2,17 +2,26 @@ package com.example.sports.models;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Entity
-@Table(name = "team")
-public class TeamMembers {
+@Table(name = "team_members")
+public class TeamMembers implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
+    @Column(name = "team_id")
     private Long teamId;
+    @Column(name = "surname")
     private String surname;
+    @Column(name = "name")
     private String name;
+    @Column(name = "patronymic")
     private String patronymic;
+    @Column(name = "date_of_birth")
     private String dateOfBirth;
+    @Column(name = "role")
     private String role;
 
     public Long getId() {
@@ -71,4 +80,13 @@ public class TeamMembers {
         this.role = role;
     }
 
+    public TeamMembers() {};
+
+    public TeamMembers(String surname, String name, String patronymic, String dateOfBirth, String role) {
+        this.surname = surname;
+        this.name = name;
+        this.patronymic = patronymic;
+        this.dateOfBirth = dateOfBirth;
+        this.role = role;
+    }
 }
