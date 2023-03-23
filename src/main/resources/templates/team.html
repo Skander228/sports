@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Team</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+</head>
+<div th:insert="blocks/header :: header"></div>
+<body>
+
+<table class="table table-dark table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Название команды</th>
+      <th scope="col">Вид спорта</th>
+      <th scope="col">Дата основания</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr th:each="el : ${team}">
+      <td th:text="${el.id}"></td>
+      <td th:text="${el.nameTeam}"></td>
+      <td th:text="${el.nameSports}"></td>
+      <td th:text="${el.date}"></td>
+    </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

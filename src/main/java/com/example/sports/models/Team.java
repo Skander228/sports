@@ -2,11 +2,9 @@ package com.example.sports.models;
 
 import jakarta.persistence.*;
 
-import java.io.Serializable;
-
 @Entity
 @Table(name = "team")
-public class Team implements Serializable {
+public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
