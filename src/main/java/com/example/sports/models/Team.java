@@ -2,9 +2,7 @@ package com.example.sports.models;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "team")
@@ -14,8 +12,8 @@ public class Team {
     @Column(name = "id")
     private Long id;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "teamId")
-    private Set<TeamMembers> teamMembers = new HashSet<>();
-    @Column(name = "name_team", unique = true, nullable = false)
+    private List<TeamMembers> teamMembers = new ArrayList<>();
+    @Column(name = "name_team", nullable = false)
     private String nameTeam;
     @Column(name = "name_sports", nullable = false)
     private String nameSports;

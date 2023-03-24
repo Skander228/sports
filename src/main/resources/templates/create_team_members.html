@@ -12,21 +12,16 @@
 <main>
   <div class="col-md-7 col-lg-8 mx-auto">
     <h1 class="mb-3">Регистрация</h1>
-    <form action="/create_team_numbers" method="post" class="needs-validation was-validated" novalidate="">
+    <form action="/create_team_members" method="post" class="needs-validation was-validated" novalidate="">
       <div class="row g-3">
 
         <div class="col-12">
           <label for="teamId" class="form-label">Команда</label>
-          <select th:each="el : ${team_members}" class="form-select" id="teamId" name="teamId" aria-label="Default select example">
-            <option selected>Откройте меню команд</option>
-            <option  th:text="${el}"></option>
-          </select>
-          <!--<div class="input-group has-validation">
-            <input type="text" class="form-control" id="teamId" name="teamId" placeholder="Архангельск" required="">
-            <div class="invalid-feedback">
-              Требуется команда.
+          <select class="form-select" id="teamId" name="teamId" aria-label="Default select example" required="">
+            <div th:each="el : ${team}">
+              <option th:text="${el.nameTeam}" th:value="${el.id}"></option>
             </div>
-          </div>-->
+          </select>
         </div>
 
         <div class="col-sm-6">
@@ -54,8 +49,8 @@
         </div>
 
         <div class="col-sm-6">
-          <label for="dateOfBirth" class="form-label">Дата</label>
-          <input type="date" class="form-control" id="dateOfBirth" placeholder="dateOfBirth" value="Date" required="">
+          <label for="dateOfBirth" class="form-label">Дата рождения</label>
+          <input type="date" value="Date" pattern="dd-MM-yyyy" class="form-control" id="dateOfBirth" name="dateOfBirth" placeholder="dateOfBirth" required="">
           <div class="invalid-feedback">
             Требуется дата.
           </div>
@@ -63,7 +58,7 @@
 
         <div class="col-12">
           <label for="role" class="form-label">Роль/Позиция в команде</label>
-          <input type="email" class="form-control" id="role" name="role" placeholder="Нападающий" required="">
+          <input type="text" class="form-control" id="role" name="role" placeholder="Нападающий" required="">
           <div class="invalid-feedback">
             Требуется роль/позиция в команде.
           </div>
