@@ -3,6 +3,8 @@ package com.example.sports.models;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "team_members")
@@ -11,17 +13,19 @@ public class TeamMembers implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
-    @Column(name = "team_id")
-    private Long teamId;
-    @Column(name = "surname")
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "team_id", nullable = false)
+    private Team teamId;
+    @Column(name = "surname", nullable = false)
     private String surname;
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "patronymic")
+    @Column(name = "patronymic", nullable = false)
     private String patronymic;
-    @Column(name = "date_of_birth")
-    private String dateOfBirth;
-    @Column(name = "role")
+    @Column(name = "date_of_birth", nullable = false)
+    private Date dateOfBirth;
+    @Column(name = "role", nullable = false)
     private String role;
 
     public Long getId() {
@@ -32,11 +36,11 @@ public class TeamMembers implements Serializable {
         this.id = id;
     }
 
-    public Long getTeamId() {
+    public Team getTeamId() {
         return teamId;
     }
 
-    public void setTeamId(Long teamId) {
+    public void setTeamId(Team teamId) {
         this.teamId = teamId;
     }
 
@@ -64,11 +68,11 @@ public class TeamMembers implements Serializable {
         this.patronymic = patronymic;
     }
 
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -82,7 +86,8 @@ public class TeamMembers implements Serializable {
 
     public TeamMembers() {};
 
-    public TeamMembers(String surname, String name, String patronymic, String dateOfBirth, String role) {
+    public TeamMembers(Team teamId, String surname, String name, String patronymic, Date dateOfBirth, String role) {
+        this.teamId = teamId;
         this.surname = surname;
         this.name = name;
         this.patronymic = patronymic;

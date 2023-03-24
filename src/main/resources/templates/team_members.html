@@ -11,7 +11,7 @@
   <thead>
   <tr>
     <th scope="col">#</th>
-    <th scope="col">id команды</th>
+    <th scope="col">Команда</th>
     <th scope="col">Фамилия</th>
     <th scope="col">Имя</th>
     <th scope="col">Отчество</th>
@@ -23,7 +23,7 @@
   <tbody>
   <tr th:each="el : ${teamMembers}">
     <td th:text="${el.id}"></td>
-    <td th:text="${el.teamId}"></td>
+    <td th:text="${el.teamId.nameTeam}"></td>
     <td th:text="${el.surname}"></td>
     <td th:text="${el.name}"></td>
     <td th:text="${el.patronymic}"></td>
