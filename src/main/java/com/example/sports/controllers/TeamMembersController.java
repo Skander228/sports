@@ -11,9 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import java.util.Date;
-import java.util.Set;
 
 @Controller
 public class TeamMembersController {
@@ -38,16 +36,59 @@ public class TeamMembersController {
     }
 
     @PostMapping("/create_team_members")
-    public String createTeamNumber(@RequestParam Team teamId,
-                                   @RequestParam String surname,
-                                   @RequestParam String name,
-                                   @RequestParam String patronymic,
-                                   @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd")  Date dateOfBirth,
-                                   @RequestParam String role, Model model) {
+    public String createTeamNumber(
+            @RequestParam Team teamId,
+            @RequestParam String surname,
+            @RequestParam String name,
+            @RequestParam String patronymic,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd")  Date dateOfBirth,
+            @RequestParam String role, Model model) {
 
         TeamMembers teamMembers = new TeamMembers(teamId, surname, name, patronymic, dateOfBirth, role);
         teamMembersRepository.save(teamMembers);
 
         return "redirect:/team_members";
     }
+
+    @PostMapping("/filter_teamMembers_role")
+    public String filterRole(@RequestParam String role, Model model) {
+        Iterable<TeamMembers> filterRole;
+
+        if (role != null && !role.isEmpty()) {
+            filterRole = teamMembersRepository.findByRole(role);
+        } else {
+            filterRole = teamMembersRepository.findAll();
+        }
+
+        model.addAttribute("teamMembers", filterRole);
+        return "team_members";
+    }
+
+    /*@PostMapping("/filter_teamMembers_sports")
+    public String filterSports(@RequestParam String nameSports, Model model) {
+        Iterable<TeamMembers> filterNameSports;
+
+        if (nameSports != null && !nameSports.isEmpty()) {
+            filterNameSports = teamMembersRepository.findByNameSports(nameSports);
+        } else {
+            filterNameSports = teamMembersRepository.findAll();
+        }
+
+        model.addAttribute("teamMembers", filterNameSports);
+        return "team_members";
+    }*/
+
+/*    @PostMapping("/create_team_members")
+    public String editTeamNumber(@RequestParam Team teamId,
+                                 @RequestParam String surname,
+                                 @RequestParam String name,
+                                 @RequestParam String patronymic,
+                                 @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd")  Date dateOfBirth,
+                                 @RequestParam String role, Model model) {
+
+        TeamMembers teamMembers = new TeamMembers(teamId, surname, name, patronymic, dateOfBirth, role);
+        teamMembersRepository.save(teamMembers);
+
+        return "redirect:/team_members";
+    }*/
 }

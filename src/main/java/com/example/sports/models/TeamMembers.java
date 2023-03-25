@@ -1,10 +1,7 @@
 package com.example.sports.models;
 
 import jakarta.persistence.*;
-
-import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Table(name = "team_members")
@@ -13,7 +10,6 @@ public class TeamMembers {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "team_id", nullable = false)
     private Team teamId;
@@ -87,6 +83,16 @@ public class TeamMembers {
     public TeamMembers() {};
 
     public TeamMembers(Team teamId, String surname, String name, String patronymic, Date dateOfBirth, String role) {
+        this.teamId = teamId;
+        this.surname = surname;
+        this.name = name;
+        this.patronymic = patronymic;
+        this.dateOfBirth = dateOfBirth;
+        this.role = role;
+    }
+
+    public TeamMembers(Long id, Team teamId, String surname, String name, String patronymic, Date dateOfBirth, String role) {
+        this.id = id;
         this.teamId = teamId;
         this.surname = surname;
         this.name = name;

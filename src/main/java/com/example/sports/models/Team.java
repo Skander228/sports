@@ -22,6 +22,8 @@ public class Team {
 
     public Long getId() {return id;}
     public void setId(Long id) {this.id = id;}
+    public List<TeamMembers> getTeamMembers() {return teamMembers;}
+    public void setTeamMembers(List<TeamMembers> teamMembers) {this.teamMembers = teamMembers;}
     public String getNameTeam() {return nameTeam;}
     public void setNameTeam(String nameTeam) {this.nameTeam = nameTeam;}
     public String getNameSports() {return nameSports;}

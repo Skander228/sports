@@ -8,6 +8,15 @@
 <div th:insert="blocks/header :: header"></div>
 <body>
 
+<form method="post" action="team_filter_sports">
+  <div class="mb-3">
+    <p class="h2">Фильтрация по спорту</p>
+    <input type="text" class="form-control"  name="nameSports" aria-describedby="emailHelp">
+    <div class="form-text">Введите вид спорта</div>
+  </div>
+  <button type="submit" class="btn btn-success">Найти</button>
+</form>
+
 <table class="table table-dark table-striped">
   <thead>
     <tr>
