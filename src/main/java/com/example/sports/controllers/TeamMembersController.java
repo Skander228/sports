@@ -37,15 +37,26 @@ public class TeamMembersController {
 
     @PostMapping("/create_team_members")
     public String createTeamNumber(
-            @RequestParam Team teamId,
+            @RequestParam(required = false) Team teamId,
             @RequestParam String surname,
             @RequestParam String name,
             @RequestParam String patronymic,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd")  Date dateOfBirth,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd")  Date dateOfBirth,
             @RequestParam String role, Model model) {
 
-        TeamMembers teamMembers = new TeamMembers(teamId, surname, name, patronymic, dateOfBirth, role);
-        teamMembersRepository.save(teamMembers);
+        if (teamId != null && !teamId.toString().isEmpty()
+                && surname != null && !surname.isEmpty()
+                && name != null && !name.isEmpty()
+                && patronymic != null && !patronymic.isEmpty()
+                && dateOfBirth != null && !dateOfBirth.toString().isEmpty()) {
+
+            TeamMembers teamMembers = new TeamMembers(teamId, surname, name, patronymic, dateOfBirth, role);
+            teamMembersRepository.save(teamMembers);
+        } else {
+            return "redirect:/create_team_members";
+        }
+
+
 
         return "redirect:/team_members";
     }

@@ -11,8 +11,17 @@
 <form method="post" action="team_filter_sports">
   <div class="mb-3">
     <p class="h2">Фильтрация по спорту</p>
-    <input type="text" class="form-control"  name="nameSports" aria-describedby="emailHelp">
+    <input type="text" class="form-control"  name="nameSports">
     <div class="form-text">Введите вид спорта</div>
+  </div>
+  <button type="submit" class="btn btn-success">Найти</button>
+</form>
+
+<form method="post" action="team_filter_date">
+  <div class="mb-3">
+    <p class="h2">Фильтрация по дате</p>
+    <input type="date" class="form-control"  name="date">
+    <div class="form-text">Введите дату за период</div>
   </div>
   <button type="submit" class="btn btn-success">Найти</button>
 </form>
