@@ -22,9 +22,18 @@ public class TeamMembersController {
     private TeamRepository teamRepository;
 
     @GetMapping("/team_members")
-    private String getTeamMembers(Model model) {
-        Iterable<TeamMembers> teamMembers = teamMembersRepository.findAll();
+    private String getTeamMembers(@RequestParam(required = false) String role,Model model) {
+        Iterable<TeamMembers> teamMembers;
+
+        if (role != null && !role.isEmpty()) {
+            teamMembers = teamMembersRepository.findByRole(role);
+        } else {
+            teamMembers = teamMembersRepository.findAll();
+        }
+
         model.addAttribute("teamMembers",teamMembers);
+        model.addAttribute("role",role);
+
         return "team_members";
     }
 
@@ -61,7 +70,7 @@ public class TeamMembersController {
         return "redirect:/team_members";
     }
 
-    @PostMapping("/filter_teamMembers_role")
+  /*  @PostMapping("/filter_teamMembers_role")
     public String filterRole(@RequestParam String role, Model model) {
         Iterable<TeamMembers> filterRole;
 
@@ -73,19 +82,20 @@ public class TeamMembersController {
 
         model.addAttribute("teamMembers", filterRole);
         return "team_members";
-    }
+    }*/
 
     /*@PostMapping("/filter_teamMembers_sports")
     public String filterSports(@RequestParam String nameSports, Model model) {
         Iterable<TeamMembers> filterNameSports;
+        Iterable<Team> filterTeamSports;
 
         if (nameSports != null && !nameSports.isEmpty()) {
-            filterNameSports = teamMembersRepository.findByNameSports(nameSports);
+            filterTeamSports = teamRepository.findByNameSports(nameSports);
         } else {
             filterNameSports = teamMembersRepository.findAll();
         }
 
-        model.addAttribute("teamMembers", filterNameSports);
+        model.addAttribute("teamMembers", filterTeamSports);
         return "team_members";
     }*/
 

@@ -17,10 +17,10 @@
   <button type="submit" class="btn btn-success">Найти</button>
 </form>
 
-<form method="post" action="filter_teamMembers_role">
+<form method="get" action="/team_members">
   <div class="mb-3">
     <p class="h2">Фильтрация по роли/позиции в команде</p>
-    <input type="text" class="form-control"  name="role">
+    <input type="text" class="form-control"  name="role" th:value="${role}">
     <div class="form-text">Введите роль/позицию в команде</div>
   </div>
   <button type="submit" class="btn btn-success">Найти</button>
@@ -31,6 +31,7 @@
   <tr>
     <th scope="col">#</th>
     <th scope="col">Команда</th>
+    <th scope="col">Спорт</th>
     <th scope="col">Фамилия</th>
     <th scope="col">Имя</th>
     <th scope="col">Отчество</th>
@@ -45,6 +46,7 @@
   <tr th:each="el : ${teamMembers}">
     <td th:text="${el.id}"></td>
     <td th:text="${el.teamId.nameTeam}"></td>
+    <td th:text="${el.teamId.nameSports}"></td>
     <td th:text="${el.surname}"></td>
     <td th:text="${el.name}"></td>
     <td th:text="${el.patronymic}"></td>

@@ -8,19 +8,19 @@
 <div th:insert="blocks/header :: header"></div>
 <body>
 
-<form method="post" action="team_filter_sports">
+<form method="get" action="/team">
   <div class="mb-3">
     <p class="h2">Фильтрация по спорту</p>
-    <input type="text" class="form-control"  name="nameSports">
+    <input type="text" class="form-control" name="nameSports" th:value="${nameSports}">
     <div class="form-text">Введите вид спорта</div>
   </div>
   <button type="submit" class="btn btn-success">Найти</button>
 </form>
 
-<form method="post" action="team_filter_date">
+<form method="get" action="/team">
   <div class="mb-3">
     <p class="h2">Фильтрация по дате</p>
-    <input type="date" class="form-control"  name="date">
+    <input type="date" class="form-control" name="date"  th:value="${date}">
     <div class="form-text">Введите дату за период</div>
   </div>
   <button type="submit" class="btn btn-success">Найти</button>

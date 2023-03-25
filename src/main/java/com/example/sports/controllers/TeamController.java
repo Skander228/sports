@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
-import java.util.List;
 
 @Controller
 public class TeamController {
@@ -20,9 +19,23 @@ public class TeamController {
     private TeamRepository teamRepository;
 
     @GetMapping("/team")
-    public String getTeam(Model model) {
-        Iterable<Team> team = teamRepository.findAll();
-        model.addAttribute("team",team);
+    public String getTeam(
+            @RequestParam(required = false) String nameSports,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date date,
+            Model model) {
+        Iterable<Team> team;
+
+        if (nameSports != null && !nameSports.isEmpty()) {
+            team = teamRepository.findByNameSports(nameSports);
+        } else if (date != null && !date.toString().isEmpty()) {
+            team = teamRepository.findByDateGreaterThan(date);
+        } else {
+            team = teamRepository.findAll();
+        }
+
+        model.addAttribute("team", team);
+        model.addAttribute("nameSports", nameSports);
+
         return "team";
     }
 
@@ -46,34 +59,5 @@ public class TeamController {
         }
         return "redirect:/team";
     }
-
-    @PostMapping("/team_filter_sports")
-    public String filterSports(@RequestParam String nameSports, Model model) {
-        Iterable<Team> filterNameSports;
-
-        if (nameSports != null && !nameSports.isEmpty()) {
-            filterNameSports = teamRepository.findByNameSports(nameSports);
-        } else {
-            filterNameSports = teamRepository.findAll();
-        }
-
-        model.addAttribute("team", filterNameSports);
-        return "team";
-    }
-
-    @PostMapping("/team_filter_date")
-    public String filterDate(@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date date, Model model) {
-        Iterable<Team> filterDate;
-
-        if (date != null && !date.toString().isEmpty()) {
-            filterDate = teamRepository.findByDateGreaterThan(date);
-        } else {
-            filterDate = teamRepository.findAll();
-        }
-
-        model.addAttribute("team", filterDate);
-        return "team";
-    }
-
 
 }
