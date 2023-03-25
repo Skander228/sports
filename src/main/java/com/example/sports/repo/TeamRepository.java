@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.List;
 
 public interface TeamRepository extends JpaRepository<Team, Long> {
-    List<Team> findAllByOrderById();
     List<Team> findByNameSports(String nameSports);
     List<Team> 	findByDateGreaterThan(Date date);
 }

@@ -7,10 +7,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Optional;
 
 @Controller
 public class TeamController {
@@ -37,6 +40,41 @@ public class TeamController {
         model.addAttribute("nameSports", nameSports);
 
         return "team";
+    }
+
+    @GetMapping("/edit_team/{id}")
+    public String editTeam(@PathVariable(value = "id") Long id, Model model) {
+        if (!teamRepository.existsById(id)) {
+            return "redirect:/team";
+        }
+
+        Iterable<Team> teams = teamRepository.findAll();
+        Optional<Team> team = teamRepository.findById(id);
+        ArrayList<Team> teamList = new ArrayList<>();
+
+        team.ifPresent(teamList::add);
+
+        model.addAttribute("teams", teams);
+        model.addAttribute("team", teamList);
+
+        return "edit_team";
+    }
+
+    @PostMapping("/edit_team/{id}")
+    public String editTeamUpdate(
+            @PathVariable(value = "id") Long id,
+            @RequestParam String nameTeam,
+            @RequestParam String nameSports,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date date, Model model) {
+
+        Team team = teamRepository.findById(id).orElseThrow();
+
+        team.setNameTeam(nameTeam);
+        team.setNameSports(nameSports);
+        team.setDate(date);
+        teamRepository.save(team);
+
+        return "redirect:/team";
     }
 
     @GetMapping("/create_team")

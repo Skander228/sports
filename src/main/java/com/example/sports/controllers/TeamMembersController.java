@@ -22,7 +22,7 @@ public class TeamMembersController {
     private TeamRepository teamRepository;
 
     @GetMapping("/team_members")
-    private String getTeamMembers(@RequestParam(required = false) String role,Model model) {
+    public String getTeamMembers(@RequestParam(required = false) String role,Model model) {
         Iterable<TeamMembers> teamMembers;
 
         if (role != null && !role.isEmpty()) {
