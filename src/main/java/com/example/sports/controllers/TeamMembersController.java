@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Date;
@@ -70,46 +71,13 @@ public class TeamMembersController {
         return "redirect:/team_members";
     }
 
-  /*  @PostMapping("/filter_teamMembers_role")
-    public String filterRole(@RequestParam String role, Model model) {
-        Iterable<TeamMembers> filterRole;
+    @PostMapping("/remove_team_members/{id}")
+    public String teamMembersDelete(
+            @PathVariable(value = "id") Long id) {
 
-        if (role != null && !role.isEmpty()) {
-            filterRole = teamMembersRepository.findByRole(role);
-        } else {
-            filterRole = teamMembersRepository.findAll();
-        }
-
-        model.addAttribute("teamMembers", filterRole);
-        return "team_members";
-    }*/
-
-    /*@PostMapping("/filter_teamMembers_sports")
-    public String filterSports(@RequestParam String nameSports, Model model) {
-        Iterable<TeamMembers> filterNameSports;
-        Iterable<Team> filterTeamSports;
-
-        if (nameSports != null && !nameSports.isEmpty()) {
-            filterTeamSports = teamRepository.findByNameSports(nameSports);
-        } else {
-            filterNameSports = teamMembersRepository.findAll();
-        }
-
-        model.addAttribute("teamMembers", filterTeamSports);
-        return "team_members";
-    }*/
-
-/*    @PostMapping("/create_team_members")
-    public String editTeamNumber(@RequestParam Team teamId,
-                                 @RequestParam String surname,
-                                 @RequestParam String name,
-                                 @RequestParam String patronymic,
-                                 @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd")  Date dateOfBirth,
-                                 @RequestParam String role, Model model) {
-
-        TeamMembers teamMembers = new TeamMembers(teamId, surname, name, patronymic, dateOfBirth, role);
-        teamMembersRepository.save(teamMembers);
+        TeamMembers teamMembers = teamMembersRepository.findById(id).orElseThrow();
+        teamMembersRepository.delete(teamMembers);
 
         return "redirect:/team_members";
-    }*/
+    }
 }

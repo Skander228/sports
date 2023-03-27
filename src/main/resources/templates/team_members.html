@@ -53,7 +53,9 @@
     <td th:text="${el.dateOfBirth}"></td>
     <td th:text="${el.role}"></td>
     <td><a href="edit_team_members" class="btn btn-primary">Изменить</a></td>
-    <td><button type="submit" class="btn btn-danger">Удалить</button></td>
+    <form th:action="'/remove_team_members/' + ${el.id}" method="post">
+      <td><button class="btn btn-danger" type="submit">Удалить</button></td>
+    </form>
   </tr>
   </tbody>
 </table>

@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface TeamMembersRepository extends JpaRepository<TeamMembers, Long> {
     List<TeamMembers> findByRole(String role);
-    List<TeamMembers> findByTeamId(Team teamId);
 }
