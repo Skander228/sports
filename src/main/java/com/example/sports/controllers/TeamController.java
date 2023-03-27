@@ -1,6 +1,8 @@
 package com.example.sports.controllers;
 
 import com.example.sports.models.Team;
+import com.example.sports.models.TeamMembers;
+import com.example.sports.repo.TeamMembersRepository;
 import com.example.sports.repo.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,6 +22,8 @@ public class TeamController {
 
     @Autowired
     private TeamRepository teamRepository;
+    @Autowired
+    TeamMembersRepository teamMembersRepository;
 
     @GetMapping("/team")
     public String getTeam(
@@ -73,6 +77,16 @@ public class TeamController {
         team.setNameSports(nameSports);
         team.setDate(date);
         teamRepository.save(team);
+
+        return "redirect:/team";
+    }
+
+    @PostMapping("/remove_team/{id}")
+    public String teamDelete(
+            @PathVariable(value = "id") Long id) {
+
+        Team team = teamRepository.findById(id).orElseThrow();
+        teamRepository.delete(team);
 
         return "redirect:/team";
     }

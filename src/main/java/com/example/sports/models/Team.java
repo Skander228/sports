@@ -11,7 +11,7 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "teamId")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "teamId", cascade = CascadeType.REMOVE)
     private List<TeamMembers> teamMembers = new ArrayList<>();
     @Column(name = "name_team", nullable = false)
     private String nameTeam;

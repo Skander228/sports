@@ -45,7 +45,13 @@
       <td th:text="${el.nameSports}"></td>
       <td th:text="${el.date}"></td>
       <td><a th:href="'/edit_team/' + ${el.id}" class="btn btn-primary">Изменить</a></td>
-      <td><a th:href="'/remove_team/' + ${el.id}" class="btn btn-danger">Удалить</a></td>
+      <form th:action="'/remove_team/' + ${el.id}" method="post">
+        <td><button class="btn btn-danger" type="submit">Удалить</button></td>
+      </form>
+      <!--<td><a th:href="'/remove_team/' + ${el.id}" class="btn btn-danger">Удалить</a></td>-->
+      <!--<from th:action="'/remove_team/' + ${el.id} + '/remove'">
+        <td><button class="btn btn-danger" type="submit">Удалить</button></td>
+      </from>-->
     </tr>
   </tbody>
 </table>
