@@ -12,21 +12,22 @@
 <main>
   <div class="col-md-7 col-lg-8 mx-auto">
     <h1 class="mb-3">Регистрация</h1>
-    <form action="/create_team_members" method="post" class="needs-validation was-validated" novalidate="">
-      <div class="row g-3">
+    <form method="post" class="needs-validation was-validated" novalidate="">
+      <div class="row g-3" th:each="el : ${teamMembers}">
 
         <div class="col-12">
           <label for="teamId" class="form-label">Команда</label>
           <select class="form-select" id="teamId" name="teamId" aria-label="Default select example" required="">
-            <div th:each="el : ${team}">x
-              <option th:text="${el.nameTeam}" th:value="${el.id}"></option>
+            <option th:text="${el.teamId.nameTeam}" th:value="${el.teamId.id}"></option>
+            <div th:each="ell : ${teams}">
+              <option th:text="${ell.nameTeam}" th:value="${ell.id}"></option>
             </div>
           </select>
         </div>
 
         <div class="col-sm-6">
           <label for="surname" class="form-label">Фамилия</label>
-          <input type="text" class="form-control" id="surname" name="surname"  placeholder="Соболев" required="">
+          <input type="text" th:value="${el.surname}" class="form-control" id="surname" name="surname" required="">
           <div class="invalid-feedback">
             Требуется Фамилия.
           </div>
@@ -34,7 +35,7 @@
 
         <div class="col-sm-6">
           <label for="name" class="form-label">Имя</label>
-          <input type="text" class="form-control" id="name" name="name" placeholder="Сергей" required="">
+          <input type="text" th:value="${el.name}" class="form-control" id="name" name="name" required="">
           <div class="invalid-feedback">
             Требуется Имя.
           </div>
@@ -42,7 +43,7 @@
 
         <div class="col-sm-6">
           <label for="patronymic" class="form-label">Отчество</label>
-          <input type="text" class="form-control" id="patronymic" name="patronymic" placeholder="Викторович" required="">
+          <input type="text" th:value="${el.patronymic}" class="form-control" id="patronymic" name="patronymic" required="">
           <div class="invalid-feedback">
             Требуется Отчество.
           </div>
@@ -50,7 +51,7 @@
 
         <div class="col-sm-6">
           <label for="dateOfBirth" class="form-label">Дата рождения</label>
-          <input type="date" value="Date" pattern="dd-MM-yyyy" class="form-control" id="dateOfBirth" name="dateOfBirth" placeholder="dateOfBirth" required="">
+          <input type="date" pattern="dd-MM-yyyy" class="form-control" id="dateOfBirth" name="dateOfBirth" required="">
           <div class="invalid-feedback">
             Требуется дата.
           </div>
@@ -58,13 +59,14 @@
 
         <div class="col-12">
           <label for="role" class="form-label">Роль/Позиция в команде</label>
-          <input type="text" class="form-control" id="role" name="role" placeholder="Нападающий" required="">
+          <input type="text" th:value="${el.role}" class="form-control" id="role" name="role" required="">
           <div class="invalid-feedback">
             Требуется роль/позиция в команде.
           </div>
         </div>
       </div>
       <hr class="my-4">
+      <a href="/team_members" class="w-100 btn btn-secondary btn-lg mb-3">Вернуться назад</a>
       <button class="w-100 btn btn-primary btn-lg" type="submit">Продолжить</button>
     </form>
   </div>

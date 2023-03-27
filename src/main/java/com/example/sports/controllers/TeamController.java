@@ -52,13 +52,11 @@ public class TeamController {
             return "redirect:/team";
         }
 
-        Iterable<Team> teams = teamRepository.findAll();
         Optional<Team> team = teamRepository.findById(id);
         ArrayList<Team> teamList = new ArrayList<>();
 
         team.ifPresent(teamList::add);
 
-        model.addAttribute("teams", teams);
         model.addAttribute("team", teamList);
 
         return "edit_team";
@@ -71,13 +69,19 @@ public class TeamController {
             @RequestParam String nameSports,
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date date, Model model) {
 
-        Team team = teamRepository.findById(id).orElseThrow();
+        if (nameTeam != null && !nameTeam.isEmpty()
+                && nameSports != null && !nameSports.isEmpty()
+                && date != null && !date.toString().isEmpty()) {
 
-        team.setNameTeam(nameTeam);
-        team.setNameSports(nameSports);
-        team.setDate(date);
-        teamRepository.save(team);
+            Team team = teamRepository.findById(id).orElseThrow();
 
+            team.setNameTeam(nameTeam);
+            team.setNameSports(nameSports);
+            team.setDate(date);
+            teamRepository.save(team);
+        } else {
+            return "redirect:/edit_team/{id}";
+        }
         return "redirect:/team";
     }
 

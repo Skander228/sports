@@ -52,7 +52,7 @@
     <td th:text="${el.patronymic}"></td>
     <td th:text="${el.dateOfBirth}"></td>
     <td th:text="${el.role}"></td>
-    <td><a href="edit_team_members" class="btn btn-primary">Изменить</a></td>
+    <td><a th:href="'/edit_team_members/' + ${el.id}" class="btn btn-primary">Изменить</a></td>
     <form th:action="'/remove_team_members/' + ${el.id}" method="post">
       <td><button class="btn btn-danger" type="submit">Удалить</button></td>
     </form>
