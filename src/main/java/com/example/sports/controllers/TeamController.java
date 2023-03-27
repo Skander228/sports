@@ -30,6 +30,7 @@ public class TeamController {
             @RequestParam(required = false) String nameSports,
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date date,
             Model model) {
+
         Iterable<Team> team;
 
         if (nameSports != null && !nameSports.isEmpty()) {

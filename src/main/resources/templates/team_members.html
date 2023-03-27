@@ -8,10 +8,10 @@
 <div th:insert="blocks/header :: header"></div>
 <body>
 
-<form method="post" action="filter_teamMembers_sports">
+<form method="get" action="/team_members">
   <div class="mb-3">
     <p class="h2">Фильтрация по спорту</p>
-    <input type="text" class="form-control"  name="nameSports">
+    <input type="text" class="form-control" name="nameSports"  th:value="${sports}">
     <div class="form-text">Введите вид спорта</div>
   </div>
   <button type="submit" class="btn btn-success">Найти</button>

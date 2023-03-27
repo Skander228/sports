@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -26,23 +27,32 @@ public class TeamMembersController {
     private TeamRepository teamRepository;
 
     @GetMapping("/team_members")
-    public String getTeamMembers(@RequestParam(required = false) String role,Model model) {
-        Iterable<TeamMembers> teamMembers;
+    public String getTeamMembers(
+            @RequestParam(required = false) String role,
+            @RequestParam(required = false) String nameSports,Model model) {
+
+        Iterable<TeamMembers> teamMembers = null;
+        Iterable<Team> team;
 
         if (role != null && !role.isEmpty()) {
             teamMembers = teamMembersRepository.findByRole(role);
+        } else if (nameSports != null && !nameSports.isEmpty()) {
+            team = teamRepository.findByNameSports(nameSports);
+            Team t = team.iterator().next();
+           teamMembers = teamMembersRepository.findByTeamId(t);
         } else {
             teamMembers = teamMembersRepository.findAll();
         }
 
-        model.addAttribute("teamMembers",teamMembers);
-        model.addAttribute("role",role);
+        model.addAttribute("teamMembers", teamMembers);
+        model.addAttribute("role", role);
+        model.addAttribute("sports", nameSports);
 
         return "team_members";
     }
 
     @GetMapping("/create_team_members")
-    public String createTeamNumber(Model model) {
+    public String createTeamMember(Model model) {
         Iterable<Team> team = teamRepository.findAll();
         model.addAttribute("team", team);
         return "create_team_members";
